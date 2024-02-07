@@ -7627,11 +7627,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Anis\\source\\repos\\BlazorApp1\\BlazorApp1\\BlazorApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Anis\\source\\repos\\BlazorSample\\BlazorApp1\\BlazorApp1\\BlazorApp1.csproj",
       "projectName": "BlazorApp1",
-      "projectPath": "C:\\Users\\Anis\\source\\repos\\BlazorApp1\\BlazorApp1\\BlazorApp1.csproj",
+      "projectPath": "C:\\Users\\Anis\\source\\repos\\BlazorSample\\BlazorApp1\\BlazorApp1\\BlazorApp1.csproj",
       "packagesPath": "C:\\Users\\Anis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Anis\\source\\repos\\BlazorApp1\\BlazorApp1\\obj\\",
+      "outputPath": "C:\\Users\\Anis\\source\\repos\\BlazorSample\\BlazorApp1\\BlazorApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Anis\\AppData\\Roaming\\NuGet\\NuGet.Config",
