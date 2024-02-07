@@ -1,0 +1,90 @@
+﻿@page "/edit-author"
+@page "/edit-author/{id:int}"
+@using BlazorApp1.Models
+@using BlazorApp1.Services
+@inject HttpClient Http
+@inject NavigationManager urlNavigationManager
+@code {
+    [Inject]
+    public IAuthorServices AuthorServices { get; set; }
+}
+
+<h1>Create Author</h1>
+<hr />
+
+<EditForm Model="@author" OnSubmit="@CreateAuthor" FormName="edit-author">
+    <DataAnnotationsValidator />
+    <div class="form-group row">
+        <label class="control-label col-md-12">Name</label>
+        <div class="col-md-4">
+            <InputText @bind-Value="author!.Name" class="form-control" />
+        </div>
+        <ValidationMessage For="@(() => author.Name)" />
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">Gender</label>
+        <div class="col-md-4">
+            <InputSelect class="form-control" @bind-Value="author!.Gender">
+@*                 <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option> *@
+                @foreach(var op in GenderDDL)
+                {
+                    if (author!.Gender == op)
+                    {
+                        <option selected value="@op">@op</option>
+                    }
+                    else
+                    {
+                        <option value="@op">@op</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+        <ValidationMessage For="@(() => author.Gender)" />
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-md-12">Address</label>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="author!.Address" />
+        </div>
+        <ValidationMessage For="@(() => author.Address)" />
+    </div>
+    <div class="row">
+
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int id { get; set; }
+    [SupplyParameterFromForm]
+    public Author? author { get; set; }
+
+    List<string> GenderDDL = new List<string>() { "-- Select Gender --", "Male", "Female" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        author ??= new Author();
+        if(id > 0)
+        {
+          author =  await AuthorServices.GetAuthor(id);
+        }
+    }
+
+    protected async Task CreateAuthor()
+    {
+        await AuthorServices.AddAuthor(author);
+        urlNavigationManager.NavigateTo("/authorlist");
+    }
+
+    void Cancel()
+    {
+        urlNavigationManager.NavigateTo("/authorlist");
+    }
+}

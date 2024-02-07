@@ -1,0 +1,55 @@
+﻿@page "/authorlist"
+@using BlazorApp1.Models
+@using BlazorApp1.Services
+@code{
+    [Inject]
+    public IAuthorServices AuthorServices{get;set;}
+}
+
+<h1>Authors</h1>
+
+<p>This component demonstrates fetching Author data from the server.</p>
+
+<p>
+    <a href="/edit-author">Create New</a>
+</p>
+
+@if (authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in authors)
+            {
+                <tr>
+                    <td>@author.Name</td>
+                    <td>@author.Gender</td>
+                    <td>@author.Address</td>
+                    <td>
+                        <a href='/edit-author/@author.Id'>Edit</a>  |
+                        <a href='/delete/@author.Id'>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+
+    List<Author> authors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authors = (await AuthorServices.GetAuthors()).ToList();
+    }
+}
