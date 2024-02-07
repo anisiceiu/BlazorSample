@@ -68,7 +68,7 @@
     protected override async Task OnInitializedAsync()
     {
         author ??= new Author();
-        if(id > 0)
+        if(id > 0 && author == null)
         {
             author =  await AuthorServices.GetAuthor(id);
         }
@@ -78,6 +78,7 @@
     {
         if(id>0)
         {
+            author.Id = id;
             await AuthorServices.UpdateAuthor(author);
         }
         else
