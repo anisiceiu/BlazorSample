@@ -37,7 +37,7 @@ else
                     <td>@author.Address</td>
                     <td>
                         <a href='/edit-author/@author.Id'>Edit</a>  |
-                        <a href='/delete/@author.Id'>Delete</a>
+                        <a href="javascript:void(0)" @onclick="()=>DeleteAuthor(author.Id)">Delete</a>
                     </td>
                 </tr>
             }
@@ -51,5 +51,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         authors = (await AuthorServices.GetAuthors()).ToList();
+    }
+
+    void DeleteAuthor(int id)
+    {
+         AuthorServices.DeleteAuthor(id);
     }
 }

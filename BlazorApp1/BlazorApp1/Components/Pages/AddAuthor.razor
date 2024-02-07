@@ -25,9 +25,6 @@
         <label class="control-label col-md-12">Gender</label>
         <div class="col-md-4">
             <InputSelect class="form-control" @bind-Value="author!.Gender">
-@*                 <option value="">-- Select Gender --</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option> *@
                 @foreach(var op in GenderDDL)
                 {
                     if (author!.Gender == op)
@@ -55,7 +52,7 @@
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Save</button>
-        <button class="btn btn-light" @onclick="Cancel">Cancel</button>
+        <a class="btn btn-light" href="/authorlist">Cancel</a>
     </div>
 </EditForm>
 
@@ -73,18 +70,21 @@
         author ??= new Author();
         if(id > 0)
         {
-          author =  await AuthorServices.GetAuthor(id);
+            author =  await AuthorServices.GetAuthor(id);
         }
     }
 
     protected async Task CreateAuthor()
     {
-        await AuthorServices.AddAuthor(author);
-        urlNavigationManager.NavigateTo("/authorlist");
-    }
-
-    void Cancel()
-    {
+        if(id>0)
+        {
+            await AuthorServices.UpdateAuthor(author);
+        }
+        else
+        {
+            await AuthorServices.AddAuthor(author);
+        }
+        
         urlNavigationManager.NavigateTo("/authorlist");
     }
 }
