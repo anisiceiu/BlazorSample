@@ -8,5 +8,7 @@ namespace BlazorApp1.Services
         Uri GetBaseAddress();
         Task AddAuthor(Author author);
         Task<Author> GetAuthor(int id);
+        Task UpdateAuthor(Author author);
+        Task DeleteAuthor(int id);
     }
 }

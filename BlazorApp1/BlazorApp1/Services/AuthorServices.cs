@@ -18,6 +18,11 @@ namespace BlazorApp1.Services
             var response = await httpClient.PostAsJsonAsync("/api/Author/Create", author);
         }
 
+        public async Task DeleteAuthor(int id)
+        {
+            var response = await httpClient.DeleteAsync($"/api/Author/Delete/{id}");
+        }
+
         public async Task<Author> GetAuthor(int id)
         {
             var result = await httpClient.GetFromJsonAsync<Author>($"api/Author/Details/{id}");
@@ -32,6 +37,11 @@ namespace BlazorApp1.Services
         public Uri GetBaseAddress()
         {
             return new Uri(this._baseAddress);
+        }
+
+        public async Task UpdateAuthor(Author author)
+        {
+            var response = await httpClient.PutAsJsonAsync("/api/Author/Edit", author);
         }
     }
 }
